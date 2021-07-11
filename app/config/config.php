@@ -23,6 +23,5 @@ defined('SESSION_NAME')     ? null : define ('SESSION_NAME', '_ESTORE_SESSION');
 defined('SESSION_LIFE_TIME')     ? null : define ('SESSION_LIFE_TIME', 0);
 defined('SESSION_SAVE_PATH')     ? null : define ('SESSION_SAVE_PATH', APP_PATH . DS . '..' . DS . 'sessions');
 
-echo SESSION_SAVE_PATH;
 
 defined('APP_DEFAULT_LANGUAGE') ? null : define('APP_DEFAULT_LANGUAGE', 'ar');

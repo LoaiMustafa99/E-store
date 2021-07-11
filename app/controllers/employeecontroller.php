@@ -21,49 +21,59 @@ class EmployeeController extends AbstractController
 
     public function addAction()
     {
-        if(isset($_POST['submit']))
-        {
-            $emp = new EmployeeModel();
+        $this->_language->load('template.common');
+        $this->_language->load('employee.labels');
+        $this->_language->load('employee.add');
+
+        if(isset($_POST['submit'])) {
+            $emp = new EmployeeModel;
             $emp->name = $this->filterString($_POST['name']);
             $emp->age = $this->filterInt($_POST['age']);
             $emp->address = $this->filterString($_POST['address']);
-            $emp->tax = $this->filterFloat($_POST['tax']);
             $emp->salary = $this->filterFloat($_POST['salary']);
-            if ($emp->save() == true)
-            {
-                $_SESSION['message'] = "تم اضافة موظف جديد";
+            $emp->tax = $this->filterFloat($_POST['tax']);
+            $emp->gender = $this->filterInt($_POST['gender']);
+            $emp->theType = $this->filterInt($_POST['type']);
+            $emp->os = serialize($_POST['os']);
+            $emp->notes = $this->filterString($_POST['notes']);
+            if($emp->save()) {
+                $_SESSION['message'] = 'تم حفظ الموظف بنجاح';
                 $this->redirect('/employee');
             }
-            var_dump($_POST);
         }
-        $this->_language->load('template.common');
         $this->_view();
     }
 
     public function editAction()
     {
         $id = $this->filterInt($this->_params[0]);
+
         $emp = EmployeeModel::getByID($id);
-        if($emp == false) {
-            $this->redirect("/employee");
+        if($emp === false) {
+            $this->redirect('/employee');
         }
 
         $this->_language->load('template.common');
+        $this->_language->load('employee.labels');
+        $this->_language->load('employee.edit');
 
-        $this->_data['employees'] = $emp;
-        if(isset($_POST['submit']))
-        {
+        $emp->os = unserialize($emp->os);
+        $this->_data['employee'] = $emp;
+
+        if(isset($_POST['submit'])) {
             $emp->name = $this->filterString($_POST['name']);
             $emp->age = $this->filterInt($_POST['age']);
             $emp->address = $this->filterString($_POST['address']);
-            $emp->tax = $this->filterFloat($_POST['tax']);
             $emp->salary = $this->filterFloat($_POST['salary']);
-            if ($emp->save() == true)
-            {
-                $_SESSION['message'] = "تم تعديل موظف جديد";
+            $emp->tax = $this->filterFloat($_POST['tax']);
+            $emp->gender = $this->filterInt($_POST['gender']);
+            $emp->type = $this->filterInt($_POST['type']);
+            $emp->os = serialize($_POST['os']);
+            $emp->notes = $this->filterString($_POST['notes']);
+            if($emp->save()) {
+                $_SESSION['message'] = 'تم حفظ الموظف بنجاح';
                 $this->redirect('/employee');
             }
-            var_dump($_POST);
         }
         $this->_view();
     }
@@ -71,10 +81,15 @@ class EmployeeController extends AbstractController
     public function deleteAction()
     {
         $id = $this->filterInt($this->_params[0]);
+
         $emp = EmployeeModel::getByID($id);
-        if($emp->delete() == true) {
-            $_SESSION['message'] = "Employees deleted successfully";
-            $this->redirect("/employee");
+        if($emp === false) {
+            $this->redirect('/employee');
+        }
+
+        if($emp->delete()) {
+            $_SESSION['message'] = 'Employee, deleted successfully';
+            $this->redirect('/employee');
         }
     }
 }

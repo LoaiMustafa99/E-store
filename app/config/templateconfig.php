@@ -14,7 +14,7 @@ return [
             'normalize'         => CSS . 'normalize.css',
             'fawsome'           => CSS . 'fawsome.min.css',
             'gicons'            => CSS . 'googleicons.css',
-            'main'              => CSS . 'main.css'
+            'main'              => CSS . 'main' . $_SESSION['lang'] . '.css'
         ],
         'js' => [
             'modernizr'         => JS . 'vendor/modernizr-2.8.3.min.js'
@@ -23,7 +23,7 @@ return [
     'footer_resources' => [
         'jquery'                => JS . 'vendor/jquery-1.12.0.min.js',
         'helper'                => JS . 'helper.js',
-        'datatables'            => JS . 'datatablesar.js',
+        'datatables'            => JS . 'datatables' . $_SESSION['lang'] . '.js',
         'main'                  => JS . 'main.js'
     ]
 

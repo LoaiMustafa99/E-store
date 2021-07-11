@@ -2,7 +2,7 @@
     <p class="message <?php isset($error) ? 'error' : ''; ?>"><?= $_SESSION['message'] ?></p>
 <?php unset($_SESSION['message']); ?>
 <?php endif; ?>
-<a class="button" href="/employee/add"><i class="fa fa-plus"></i><?= $text_add_employee ?></a>
+<a class="button" href="/employee/add"><i class="fa fa-plus"></i> <?= $text_add_employee ?></a>
     <table class="data">
         <thead>
         <tr>
@@ -11,7 +11,7 @@
             <th><?= $text_table_employee_address ?></th>
             <th><?= $text_table_employee_salary ?></th>
             <th><?= $text_table_employee_tax ?></th>
-            <th><?= $text_table_employee_control ?></th>
+            <th><?= $text_table_control ?></th>
         </tr>
         </thead>
         <tbody>

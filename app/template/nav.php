@@ -9,7 +9,6 @@
     <ul class="app_navigation">
         <li><a href="/"><i class="fa fa-dashboard"></i> <?= $text_general_statistics ?></a></li>
         <li><a href="/employee"><i class="fa fa-users"></i> <?= $text_employees ?></a></li>
-        <li><a href="/language"><i class="fa fa-users"></i> <?= $text_change_language ?></a></li>
         <li><a href="/"><i class="fa fa-sign-out"></i> <?= $text_log_out ?></a></li>
     </ul>
 </nav>

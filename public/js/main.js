@@ -17,14 +17,14 @@ $('a.menu_switch').click(function(evt)
         $('nav.main_navigation').addClass('opened');
         $('div.action_view').addClass('collapsed');
         if(getCookie('menu_opened') == "") {
-            setCookie('menu_opened', true, 180, 'mvc.jo');
+            setCookie('menu_opened', true, 180, 'estore.jo');
         }
     } else {
         $(this).attr('data-menu-status', 'false');
         $(this).removeClass('opened');
         $('nav.main_navigation').removeClass('opened');
         $('div.action_view').removeClass('collapsed');
-        deleteCookie('menu_opened', 'mvc.jo');
+        deleteCookie('menu_opened', 'estore.jo');
     }
 });
 
@@ -91,7 +91,7 @@ $('li.submenu > a').click(function()
         userNameField.addEventListener('blur', function()
         {
             var req = new XMLHttpRequest();
-            req.open('POST', 'http://www.mvc.jo/users/checkuserexistsajax');
+            req.open('POST', 'http://estore.jo/users/checkuserexistsajax');
             req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
             req.onreadystatechange = function()

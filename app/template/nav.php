@@ -7,8 +7,8 @@
         <span class="privilege"><?= $text_app_manager ?></span>
     </div>
     <ul class="app_navigation">
-        <li><a href="/"><i class="fa fa-dashboard"></i> <?= $text_general_statistics ?></a></li>
-        <li><a href="/employee"><i class="fa fa-users"></i> <?= $text_employees ?></a></li>
+        <li class="<?= $this->matchUrl('/') === true ? ' selected' : '' ?>"><a href="/"><i class="fa fa-dashboard"></i> <?= $text_general_statistics ?></a></li>
+        <li class="<?= $this->matchUrl('/employee') === true ? ' selected' : '' ?>"><a href="/employee"><i class="fa fa-users"></i> <?= $text_employees ?></a></li>
         <li class="submenu">
             <a href="javascript:;"><i class="fa fa-credit-card"></i> <?= $text_transactions ?></a>
             <ul>
@@ -30,8 +30,8 @@
                 <li><a href="/productlist"><i class="fa fa-tag"></i> <?= $text_store_products ?></a></li>
             </ul>
         </li>
-        <li><a href="/clients"><i class="material-icons">contacts</i> <?= $text_clients ?></a></li>
-        <li class=""><a href="/suppliers"><i class="material-icons">group</i> <?= $text_suppliers ?></a></li>
+        <li class="<?= $this->matchUrl('/clients') === true ? ' selected' : '' ?>"><a href="/clients"><i class="material-icons">contacts</i> <?= $text_clients ?></a></li>
+        <li class="<?= $this->matchUrl('/suppliers') === true ? ' selected' : '' ?>"><a href="/suppliers"><i class="material-icons">group</i> <?= $text_suppliers ?></a></li>
         <li class="submenu">
             <a href="javascript:;"><i class="fa fa-user"></i> <?= $text_users ?></a>
             <ul>
@@ -40,8 +40,8 @@
                 <li><a href="/privileges"><i class="fa fa-key"></i> <?= $text_users_privileges ?></a></li>
             </ul>
         </li>
-        <li><a href="/reports"><i class="fa fa-bar-chart"></i> <?= $text_reports ?></a></li>
-        <li><a href="/notifications"><i class="fa fa-bell"></i> <?= $text_notifications ?></a></li>
+        <li class="<?= $this->matchUrl('/reports') === true ? ' selected' : '' ?>"><a href="/reports"><i class="fa fa-bar-chart"></i> <?= $text_reports ?></a></li>
+        <li class="<?= $this->matchUrl('/notifications') === true ? ' selected' : '' ?>"><a href="/notifications"><i class="fa fa-bell"></i> <?= $text_notifications ?></a></li>
         <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> <?= $text_log_out ?></a></li>
     </ul>
 </nav>

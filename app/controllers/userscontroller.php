@@ -2,9 +2,6 @@
 
 
 namespace PHPMVC\CONTROLLERS;
-
-
-use PHPMVC\MODELS\EmployeeModel;
 use PHPMVC\MODELS\UserModel;
 
 class UsersController extends AbstractController

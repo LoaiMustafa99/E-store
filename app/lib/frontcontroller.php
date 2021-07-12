@@ -2,6 +2,8 @@
 
 namespace PHPMVC\LIB;
 
+use PHPMVC\LIB\TEMPLATE\Template;
+
 class FrontController
 {
 
@@ -39,19 +41,18 @@ class FrontController
     public function dispatch()
     {
         $controllerClassName = 'PHPMVC\CONTROLLERS\\' . ucfirst(trim($this->_controllers , '.php')) . 'Controller';
-        $actionNam = $this->_action . 'Action';
-        if(!class_exists($controllerClassName)) {
+        $actionName = $this->_action . 'Action';
+        if(!class_exists($controllerClassName) || !method_exists($controllerClassName, $actionName)) {
             $controllerClassName = self::NOT_FOUND_CONTROLLER;
+            $this->_action = $actionName = self::NOT_FOUND_ACTION;
         }
+
         $controller = new $controllerClassName();
-        if(!method_exists($controller, $actionNam)){
-            $this->_action = $actionNam = self::NOT_FOUND_ACTION;
-        }
         $controller->setControler($this->_controllers);
         $controller->setAction($this->_action);
         $controller->setParams($this->_params);
         $controller->setTemplate($this->_template);
         $controller->setLanguage($this->_language);
-        $controller->$actionNam();
+        $controller->$actionName();
     }
 }

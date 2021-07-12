@@ -14,12 +14,6 @@ class UserModel extends AbstractModel
     public $GroupId;
     public $Status;
 
-    /**
-     * @var UserProfileModel
-     */
-    public $profile;
-    public $privileges;
-
     protected static $tableName = 'app_users';
 
     protected static $tableSchema = array(

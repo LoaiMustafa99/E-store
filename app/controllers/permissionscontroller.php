@@ -3,11 +3,13 @@ namespace PHPMVC\CONTROLLERS;
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\MODELS\permissionModel;
+use PHPMVC\MODELS\UserGroupPrivilegeModel;
 
 class PermissionsController extends AbstractController
 {
     use InputFilter;
     use Helper;
+    
     public function defaultAction()
     {
         $this->_language->load('template.common');
@@ -72,6 +74,14 @@ class PermissionsController extends AbstractController
         if($privilege === false) {
             $this->redirect('/Permissions');
         }
+
+        $groupPrivileges = UserGroupPrivilegeModel::getBy(['PrivilegeId' => $privilege->PrivilegeId]);
+        if(false !== $groupPrivileges) {
+            foreach ($groupPrivileges as $groupPrivilege) {
+                $groupPrivilege->delete();
+            }
+        }
+
 
         if($privilege->delete())
         {

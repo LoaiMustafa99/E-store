@@ -13,17 +13,17 @@ class EmployeeController extends AbstractController
 
     public function defaultAction()
     {
-        $this->_language->load('template.common');
-        $this->_language->load('employee.default');
+        $this->language->load('template.common');
+        $this->language->load('employee.default');
         $this->_data['employees'] = EmployeeModel::getAll();
         $this->_view();
     }
 
     public function addAction()
     {
-        $this->_language->load('template.common');
-        $this->_language->load('employee.labels');
-        $this->_language->load('employee.add');
+        $this->language->load('template.common');
+        $this->language->load('employee.labels');
+        $this->language->load('employee.add');
 
         if(isset($_POST['submit'])) {
             $emp = new EmployeeModel;
@@ -53,9 +53,9 @@ class EmployeeController extends AbstractController
             $this->redirect('/employee');
         }
 
-        $this->_language->load('template.common');
-        $this->_language->load('employee.labels');
-        $this->_language->load('employee.edit');
+        $this->language->load('template.common');
+        $this->language->load('employee.labels');
+        $this->language->load('employee.edit');
 
         $emp->os = unserialize($emp->os);
         $this->_data['employee'] = $emp;

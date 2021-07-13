@@ -37,7 +37,7 @@
             <ul>
                 <li><a href="/users"><i class="fa fa-user-circle"></i> <?= $text_users_list ?></a></li>
                 <li><a href="/usersgroups"><i class="fa fa-group"></i> <?= $text_users_groups ?></a></li>
-                <li><a href="/privileges"><i class="fa fa-key"></i> <?= $text_users_privileges ?></a></li>
+                <li><a href="/Permissions"><i class="fa fa-key"></i> <?= $text_users_privileges ?></a></li>
             </ul>
         </li>
         <li class="<?= $this->matchUrl('/reports') === true ? ' selected' : '' ?>"><a href="/reports"><i class="fa fa-bar-chart"></i> <?= $text_reports ?></a></li>

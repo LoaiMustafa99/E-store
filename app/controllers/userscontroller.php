@@ -1,6 +1,4 @@
 <?php
-
-
 namespace PHPMVC\CONTROLLERS;
 use PHPMVC\MODELS\UserModel;
 

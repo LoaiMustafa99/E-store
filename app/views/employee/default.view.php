@@ -29,10 +29,6 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="5"><p>Sorry no employees to list</p></td>
-            </tr>
         <?php endif; ?>
         </tbody>
     </table>

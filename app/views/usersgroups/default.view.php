@@ -1,5 +1,5 @@
 <div class="container">
-    <a href="/usersgroups/create" class="button"><i class="fa fa-plus"></i> <?= $text_new_item ?></a>
+    <a href="/usersgroups/add" class="button"><i class="fa fa-plus"></i> <?= $text_new_item ?></a>
     <table class="data">
         <thead>
         <tr>

@@ -2,6 +2,7 @@
 namespace PHPMVC\CONTROLLERS;
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
+use PHPMVC\LIB\Messenger;
 use PHPMVC\MODELS\permissionModel;
 use PHPMVC\MODELS\UserGroupModel;
 use PHPMVC\MODELS\UserGroupPrivilegeModel;
@@ -39,6 +40,7 @@ class UsersGroupsController extends AbstractController
                         $groupPrivilege->save();
                     }
                 }
+                $this->messenger->add('تم حفظ المجموعة بنجاح');
                 $this->redirect('/usersgroups');
             }
         }
@@ -90,6 +92,7 @@ class UsersGroupsController extends AbstractController
                         }
                     }
                 }
+                $this->messenger->add('تم حفظ المجموعة بنجاح');
                 $this->redirect('/usersgroups');
             }
         }
@@ -116,6 +119,7 @@ class UsersGroupsController extends AbstractController
         }
 
         if($group->delete()) {
+            $this->messenger->add('تم حذف المجموعة بنجاح', Messenger::APP_MESSAGE_ERROR);
             $this->redirect('/usersgroups');
         }
     }

@@ -4,6 +4,7 @@
 namespace PHPMVC\CONTROLLERS;
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
+use PHPMVC\LIB\Messenger;
 use PHPMVC\MODELS\EmployeeModel;
 
 class EmployeeController extends AbstractController
@@ -37,7 +38,7 @@ class EmployeeController extends AbstractController
             $emp->os = serialize($_POST['os']);
             $emp->notes = $this->filterString($_POST['notes']);
             if($emp->save()) {
-                $_SESSION['message'] = 'تم حفظ الموظف بنجاح';
+                $this->messenger->add('تم حفظ الموظف بنجاح');
                 $this->redirect('/employee');
             }
         }
@@ -71,7 +72,7 @@ class EmployeeController extends AbstractController
             $emp->os = serialize($_POST['os']);
             $emp->notes = $this->filterString($_POST['notes']);
             if($emp->save()) {
-                $_SESSION['message'] = 'تم حفظ الموظف بنجاح';
+                $this->messenger->add('تم حفظ الموظف بنجاح');
                 $this->redirect('/employee');
             }
         }
@@ -88,7 +89,7 @@ class EmployeeController extends AbstractController
         }
 
         if($emp->delete()) {
-            $_SESSION['message'] = 'Employee, deleted successfully';
+            $this->messenger->add('تم حذف الموظف بنجاح', Messenger::APP_MESSAGE_ERROR);
             $this->redirect('/employee');
         }
     }

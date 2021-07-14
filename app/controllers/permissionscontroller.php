@@ -2,6 +2,7 @@
 namespace PHPMVC\CONTROLLERS;
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
+use PHPMVC\LIB\Messenger;
 use PHPMVC\MODELS\permissionModel;
 use PHPMVC\MODELS\UserGroupPrivilegeModel;
 
@@ -30,6 +31,7 @@ class PermissionsController extends AbstractController
             $privilege->Privilege = $this->filterString($_POST['Privilege']);
             if($privilege->save())
             {
+                $this->messenger->add('تم حفظ الصلاحية بنجاح');
                 $this->redirect('/Permissions');
             }
         }
@@ -58,6 +60,7 @@ class PermissionsController extends AbstractController
             $privilege->Privilege = $this->filterString($_POST['Privilege']);
             if($privilege->save())
             {
+                $this->messenger->add('تم حفظ الصلاحية بنجاح');
                 $this->redirect('/Permissions');
             }
         }
@@ -85,6 +88,7 @@ class PermissionsController extends AbstractController
 
         if($privilege->delete())
         {
+            $this->messenger->add('تم حذف الصلاحية بنجاح' , Messenger::APP_MESSAGE_ERROR);
             $this->redirect('/Permissions');
         }
     }

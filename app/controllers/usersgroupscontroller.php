@@ -40,7 +40,7 @@ class UsersGroupsController extends AbstractController
                         $groupPrivilege->save();
                     }
                 }
-                $this->messenger->add('تم حفظ المجموعة بنجاح');
+                $this->messenger->add('UserGroup','تم حفظ المجموعة بنجاح');
                 $this->redirect('/usersgroups');
             }
         }
@@ -92,7 +92,7 @@ class UsersGroupsController extends AbstractController
                         }
                     }
                 }
-                $this->messenger->add('تم حفظ المجموعة بنجاح');
+                $this->messenger->add('UserGroup','تم حفظ المجموعة بنجاح');
                 $this->redirect('/usersgroups');
             }
         }
@@ -119,7 +119,7 @@ class UsersGroupsController extends AbstractController
         }
 
         if($group->delete()) {
-            $this->messenger->add('تم حذف المجموعة بنجاح', Messenger::APP_MESSAGE_ERROR);
+            $this->messenger->add('UserGroup', 'تم حذف المجموعة بنجاح', Messenger::APP_MESSAGE_ERROR);
             $this->redirect('/usersgroups');
         }
     }

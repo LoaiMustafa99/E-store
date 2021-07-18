@@ -470,6 +470,14 @@ div.wrapper div.action_view form.appForm div.input_wrapper {
     clear: both;
 }
 
+div.wrapper div.action_view form.appForm div.input_wrapper span {
+    font-size: 10px;
+    color: red;
+    position: absolute;
+}
+div.wrapper div.action_view form.appForm div.input_wrapper span.validInput {
+    display: none;
+}
 div.wrapper div.action_view form.appForm div.input_wrapper.n10,
 div.wrapper div.action_view form.appForm div.input_wrapper.n20,
 div.wrapper div.action_view form.appForm div.input_wrapper.n30,
@@ -523,6 +531,12 @@ div.wrapper div.action_view form.appForm div.input_wrapper_other {
     clear: both;
     border-top: solid 1px transparent;
     border-bottom: solid 1px #e4e4e4;
+}
+
+div.wrapper div.action_view form.appForm div.input_wrapper_other span {
+    font-size: 10px;
+    color: red;
+    position: absolute;
 }
 
 div.wrapper div.action_view form.appForm div.input_wrapper_other.n10,

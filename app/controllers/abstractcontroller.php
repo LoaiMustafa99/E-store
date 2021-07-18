@@ -1,11 +1,10 @@
 <?php
-
-
 namespace PHPMVC\CONTROLLERS;
 use PHPMVC\LIB\FrontController;
 
 class AbstractController
 {
+
     protected $_controller;
     protected $_action;
     protected $_params;

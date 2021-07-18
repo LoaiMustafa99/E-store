@@ -38,7 +38,7 @@ class EmployeeController extends AbstractController
             $emp->os = serialize($_POST['os']);
             $emp->notes = $this->filterString($_POST['notes']);
             if($emp->save()) {
-                $this->messenger->add('تم حفظ الموظف بنجاح');
+                $this->messenger->add('employeeMe' ,'تم حفظ الموظف بنجاح');
                 $this->redirect('/employee');
             }
         }
@@ -72,7 +72,7 @@ class EmployeeController extends AbstractController
             $emp->os = serialize($_POST['os']);
             $emp->notes = $this->filterString($_POST['notes']);
             if($emp->save()) {
-                $this->messenger->add('تم حفظ الموظف بنجاح');
+                $this->messenger->add('employeeMe', 'تم حفظ الموظف بنجاح');
                 $this->redirect('/employee');
             }
         }
@@ -89,7 +89,7 @@ class EmployeeController extends AbstractController
         }
 
         if($emp->delete()) {
-            $this->messenger->add('تم حذف الموظف بنجاح', Messenger::APP_MESSAGE_ERROR);
+            $this->messenger->add('employeeMe', 'تم حذف الموظف بنجاح', Messenger::APP_MESSAGE_ERROR);
             $this->redirect('/employee');
         }
     }

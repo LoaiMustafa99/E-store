@@ -31,10 +31,12 @@ $('a.menu_switch').click(function(evt)
 $('form.appForm input:not(.no_float)').on('focus', function()
 {
     $(this).parent().find('label').addClass('floated');
+    $(this).parent().find('span').addClass('validInput');
 }).on('blur', function()
 {
     if($(this).val() == '') {
         $(this).parent().find('label').removeClass('floated');
+        $(this).parent().find('span').removeClass('validInput');
     } else {
 
     }

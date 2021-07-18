@@ -27,29 +27,44 @@ class Messenger
         return self::$_instance;
     }
 
-    public function add($message, $type = self::APP_MESSAGE_SUCCESS)
+    public function add($name, $message, $type = self::APP_MESSAGE_SUCCESS)
     {
-        if(!$this->messagesExists()) {
-            $this->_session->messages = [];
+        $name = $name . '_message';
+        if(!$this->messagesExists($name)) {
+            $data = [$message , $type];
+            $this->_session->$name = $data;
+            unset($data);
         }
-        $msgs = $this->_session->messages;
-        $msgs[] = [$message, $type];
-        $this->_session->messages = $msgs;
     }
 
-    private function messagesExists()
+    private function messagesExists($name)
     {
-        return isset($this->_session->messages);
+        return isset($this->_session->$name);
     }
 
-    public function getMessages()
+    public function addMulti(array $mses, $type = self::APP_MESSAGE_SUCCESS)
     {
-        if($this->messagesExists()) {
-            $this->_messages = $this->_session->messages;
-            unset($this->_session->messages);
-            return $this->_messages;
+        foreach ($mses as $key => $value)
+        {
+            $name = $key . '_message';
+            if(!$this->messagesExists($name)) {
+                $data = [$value , $type];
+                $this->_session->$name = $data;
+                unset($data);
+            }
         }
-        return [];
+    }
+
+
+    public function getMessages($name)
+    {
+        $name = $name . '_message';
+        if($this->messagesExists($name)) {
+            $messages = $this->_session->$name;
+            unset($this->_session->$name);
+            return $messages;
+        }
+        return null;
     }
 
 }

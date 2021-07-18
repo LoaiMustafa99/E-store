@@ -1,7 +1,7 @@
-<?php if(isset($_SESSION['message'])): ?>
-    <p class="message <?php isset($error) ? 'error' : ''; ?>"><?= $_SESSION['message'] ?></p>
-<?php unset($_SESSION['message']); ?>
-<?php endif; ?>
+<?php $massege = $this->messenger->getMessages("employeeMe");?>
+<?php if($massege !== null):?>
+    <p class="message t<?= $massege[1] ?>"><?= $massege[0] ?><a href="" class="closeBtn"><i class="fa fa-times"></i></a></p>
+<?php endif;?>
 <a class="button" href="/employee/add"><i class="fa fa-plus"></i> <?= $text_add_employee ?></a>
     <table class="data">
         <thead>

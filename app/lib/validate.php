@@ -11,11 +11,13 @@ trait Validate
         'alphanum'      => '/^[a-zA-Z\p{Arabic}0-9]+$/u',
         'Validdate'     => '/^[1-2][0-9][0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:0[1-9])|(?:(?:1|2)[0-9])|(?:3[0-1]))$/',
         'email'         => '/^([\w0-9_\-\.]+)@([\w\-]+\.)+[\w]{2,6}$/',
-        'url'           => '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/'
+        'url'           => '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/',
+        "phonenumber"   => "/^(?:07)(?:7|8|9)[0-9]{7}$/"
     ];
 
     public function EmptyValue ($value)
     {
+        $value = trim($value);
         return '' == $value || empty($value);
     }
 
@@ -111,6 +113,11 @@ trait Validate
     public function url($value)
     {
         return (bool) preg_match($this->_regexPatterns['url'], $value);
+    }
+
+    public function phonenumber($value)
+    {
+        return (bool) preg_match($this->_regexPatterns['phonenumber'], $value);
     }
 
 

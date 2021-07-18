@@ -31,7 +31,7 @@ class PermissionsController extends AbstractController
             $privilege->Privilege = $this->filterString($_POST['Privilege']);
             if($privilege->save())
             {
-                $this->messenger->add('تم حفظ الصلاحية بنجاح');
+                $this->messenger->add('permission', 'تم حفظ الصلاحية بنجاح');
                 $this->redirect('/Permissions');
             }
         }
@@ -60,7 +60,7 @@ class PermissionsController extends AbstractController
             $privilege->Privilege = $this->filterString($_POST['Privilege']);
             if($privilege->save())
             {
-                $this->messenger->add('تم حفظ الصلاحية بنجاح');
+                $this->messenger->add('permission', 'تم حفظ الصلاحية بنجاح');
                 $this->redirect('/Permissions');
             }
         }
@@ -88,7 +88,7 @@ class PermissionsController extends AbstractController
 
         if($privilege->delete())
         {
-            $this->messenger->add('تم حذف الصلاحية بنجاح' , Messenger::APP_MESSAGE_ERROR);
+            $this->messenger->add('permission', 'تم حذف الصلاحية بنجاح' , Messenger::APP_MESSAGE_ERROR);
             $this->redirect('/Permissions');
         }
     }

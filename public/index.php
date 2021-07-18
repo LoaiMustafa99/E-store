@@ -6,6 +6,7 @@ use PHPMVC\LIB\Messenger;
 use PHPMVC\LIB\Registry;
 use PHPMVC\LIB\SessionManager;
 use PHPMVC\LIB\TEMPLATE\Template;
+use PHPMVC\LIB\Validation;
 
 
 if(!defined('DS')){
@@ -29,10 +30,13 @@ $language = new Language();
 
 $messenger = Messenger::getInstance($session);
 
+$validation = Validation::getInstance($messenger);
+
 $registry = Registry::getInstance();
 $registry->session = $session;
 $registry->language = $language;
 $registry->messenger = $messenger;
+$registry->validate = $validation;
 
 $frontcontroller = new FrontController($template, $registry);
 $frontcontroller->dispatch();

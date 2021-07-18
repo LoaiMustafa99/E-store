@@ -30,4 +30,19 @@ class UserModel extends AbstractModel
 
     protected static $primaryKey = 'UserId';
 
+    public static function UserExists($user)
+    {
+        return self::getBy(['UserName' => $user]);
+    }
+
+    public function cryptPassword($password)
+    {
+        $this->Password = crypt($password, APP_SALT);
+    }
+
+
+    public static function EmailExists($Email)
+    {
+        return self::getBy(['Email' => $Email]);
+    }
 }

@@ -7,7 +7,7 @@ class TestController extends AbstractController
     use Validate;
     public function defaultAction()
     {
-        var_dump($this->url('http://google.com'));
+        var_dump($this->Passwordvalidate(''));
     }
 
 }

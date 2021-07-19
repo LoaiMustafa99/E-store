@@ -30,7 +30,7 @@ $language = new Language();
 
 $messenger = Messenger::getInstance($session);
 
-$validation = Validation::getInstance($messenger);
+$validation = Validation::getInstance($messenger, $language);
 
 $registry = Registry::getInstance();
 $registry->session = $session;

@@ -12,7 +12,8 @@ trait Validate
         'Validdate'     => '/^[1-2][0-9][0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:0[1-9])|(?:(?:1|2)[0-9])|(?:3[0-1]))$/',
         'email'         => '/^([\w0-9_\-\.]+)@([\w\-]+\.)+[\w]{2,6}$/',
         'url'           => '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/',
-        "phonenumber"   => "/^(?:07)(?:7|8|9)[0-9]{7}$/"
+        "phonenumber"   => "/^(?:07)(?:7|8|9)[0-9]{7}$/",
+        'password'      => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/"
     ];
 
     public function EmptyValue ($value)
@@ -38,6 +39,7 @@ trait Validate
 
     public function alpha($value)
     {
+        $value = trim($value);
         return (bool) preg_match($this->_regexPatterns['alpha'], $value);
     }
 
@@ -120,5 +122,9 @@ trait Validate
         return (bool) preg_match($this->_regexPatterns['phonenumber'], $value);
     }
 
+    public function Passwordvalidate($value)
+    {
+        return (bool) preg_match($this->_regexPatterns['password'], $value);
+    }
 
 }

@@ -45,4 +45,11 @@ class UserModel extends AbstractModel
     {
         return self::getBy(['Email' => $Email]);
     }
+
+    public static function getUsers()
+    {
+        return self::get(
+            'SELECT au.*, aug.GroupName GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId = au.GroupId '
+        );
+    }
 }

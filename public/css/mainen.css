@@ -470,7 +470,7 @@ div.wrapper div.action_view form.appForm div.input_wrapper {
     clear: both;
 }
 
-div.wrapper div.action_view form.appForm div.input_wrapper span {
+div.wrapper div.action_view form.appForm div.input_wrapper span.error_message {
     font-size: 10px;
     color: red;
     position: absolute;
@@ -533,7 +533,7 @@ div.wrapper div.action_view form.appForm div.input_wrapper_other {
     border-bottom: solid 1px #e4e4e4;
 }
 
-div.wrapper div.action_view form.appForm div.input_wrapper_other span {
+div.wrapper div.action_view form.appForm div.input_wrapper_other span.error_message {
     font-size: 10px;
     color: red;
     position: absolute;

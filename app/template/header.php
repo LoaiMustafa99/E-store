@@ -8,7 +8,7 @@
     </h1>
     <div class="user_menu_container">
     <a href="javascript:;" class="language_switch user">
-        <span><?= $text_welcome ?> لؤي</span>
+        <span><?= $text_welcome ?>  <?= $this->session->u->profile->FirstName ?></span>
         <i class="material-icons">keyboard_arrow_down</i>
     </a>
     <ul class="user_menu">

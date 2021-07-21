@@ -15,6 +15,8 @@ class UserModel extends AbstractModel
     public $Status;
 
     protected static $tableName = 'app_users';
+    public $profile;
+    public $privileges;
 
     protected static $tableSchema = array(
         'UserId'            => self::DATA_TYPE_INT,
@@ -45,10 +47,10 @@ class UserModel extends AbstractModel
         return self::getBy(['Email' => $Email]);
     }
 
-    public static function getUsers()
+    public static function getUsers(UserModel $userLogin)
     {
         return self::get(
-            'SELECT au.*, aug.GroupName GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId = au.GroupId '
+            'SELECT au.*, aug.GroupName GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId = au.GroupId WHERE au.UserID != ' . $userLogin->UserId
         );
     }
 

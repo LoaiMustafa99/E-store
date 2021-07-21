@@ -7,6 +7,8 @@ use PHPMVC\LIB\TEMPLATE\Template;
 class FrontController
 {
 
+    use Helper;
+
     const NOT_FOUND_ACTION = "notFoundAction";
     const NOT_FOUND_CONTROLLER = "PHPMVC\CONTROLLERS\NotFoundController";
 
@@ -16,11 +18,13 @@ class FrontController
 
     private $_registry;
     private $_template;
+    private $_authentication;
 
-    public function __construct(Template $template, Registry $registry)
+    public function __construct(Template $template, Registry $registry, Authentication $auth)
     {
         $this->_template = $template;
         $this->_registry = $registry;
+        $this->_authentication = $auth;
         $this->_parseUrl();;
     }
 
@@ -40,12 +44,25 @@ class FrontController
 
     public function dispatch()
     {
-        $controllerClassName = 'PHPMVC\CONTROLLERS\\' . ucfirst(trim($this->_controllers , '.php')) . 'Controller';
+        $controllerClassName = 'PHPMVC\CONTROLLERS\\' . ucfirst($this->_controllers) . 'Controller';
         $actionName = $this->_action . 'Action';
+
+        if(!$this->_authentication->isAuthorized()){
+            if($this->_controllers != 'auth' && $this->_action != 'login') {
+                $this->redirect('/auth/login');
+            }
+        }else {
+            // deny access to the auth/login
+            if ($this->_controllers == 'auth' && $this->_action == 'login') {
+                isset($_SERVER['HTTP_REFERER']) ? $this->redirect($_SERVER['HTTP_REFERER']) : $this->redirect('/');
+            }
+        }
+
         if(!class_exists($controllerClassName) || !method_exists($controllerClassName, $actionName)) {
             $controllerClassName = self::NOT_FOUND_CONTROLLER;
             $this->_action = $actionName = self::NOT_FOUND_ACTION;
         }
+
 
         $controller = new $controllerClassName();
         $controller->setControler($this->_controllers);

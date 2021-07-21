@@ -38,6 +38,11 @@ class Template
         $this->_registry = $registry;
     }
 
+    public function swapTemplate($template)
+    {
+        $this->_templateParts['template'] = $template;
+    }
+
     private function renderTemplateHeaderStart()
     {
         extract($this->_data);
@@ -121,12 +126,15 @@ class Template
 
     public function renderApp()
     {
+       ob_start();
        $this->renderTemplateHeaderStart();
        echo $this->renderHeaderResources();
        $this->renderTemplateHeaderEnd();
        $this->renderTemplateBlocks();
        echo $this->renderFooterResources();
        $this->renderTemplateFooter();
+       ob_get_contents();
+       ob_flush();
     }
 
 }

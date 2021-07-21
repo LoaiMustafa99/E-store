@@ -1,5 +1,6 @@
 <?php
 namespace PHPMVC;
+use PHPMVC\LIB\Authentication;
 use PHPMVC\LIB\FrontController;
 use PHPMVC\LIB\Language;
 use PHPMVC\LIB\Messenger;
@@ -18,6 +19,7 @@ require_once APP_PATH . DS . 'lib' . DS . 'autoload.php';
 $session = new SessionManager();
 $session->start();
 
+
 if(!isset($session->lang)) {
     $session->lang = APP_DEFAULT_LANGUAGE;
 }
@@ -32,11 +34,13 @@ $messenger = Messenger::getInstance($session);
 
 $validation = Validation::getInstance($messenger, $language);
 
+$authentication = Authentication::getInstance($session);
+
 $registry = Registry::getInstance();
 $registry->session = $session;
 $registry->language = $language;
 $registry->messenger = $messenger;
 $registry->validate = $validation;
 
-$frontcontroller = new FrontController($template, $registry);
+$frontcontroller = new FrontController($template, $registry, $authentication);
 $frontcontroller->dispatch();

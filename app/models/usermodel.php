@@ -22,7 +22,7 @@ class UserModel extends AbstractModel
         'Password'          => self::DATA_TYPE_STR,
         'Email'             => self::DATA_TYPE_STR,
         'PhoneNumber'       => self::DATA_TYPE_STR,
-        'SubscriptionDate'  => self::DATA_TYPE_DATE,
+        'SubscriptionDate'  => self::DATA_TYPE_STR,
         'LastLogin'         => self::DATA_TYPE_STR,
         'GroupId'           => self::DATA_TYPE_INT,
         'Status'            => self::DATA_TYPE_INT,
@@ -30,16 +30,15 @@ class UserModel extends AbstractModel
 
     protected static $primaryKey = 'UserId';
 
+    public function hashPassword($password)
+    {
+        $this->Password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
     public static function UserExists($user)
     {
         return self::getBy(['UserName' => $user]);
     }
-
-    public function cryptPassword($password)
-    {
-        $this->Password = crypt($password, APP_SALT);
-    }
-
 
     public static function EmailExists($Email)
     {
@@ -51,5 +50,23 @@ class UserModel extends AbstractModel
         return self::get(
             'SELECT au.*, aug.GroupName GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId = au.GroupId '
         );
+    }
+
+    public static function authenticate ($username, $password, $session) {
+        $sql = "SELECT * FROM " . self::$tableName . " WHERE Username = '" . $username . "'";
+        $foundUser = self::getOne($sql);
+        if($foundUser !== false) {
+            if($foundUser->Status == 0) {
+                return 2;
+            }
+            $passwordGood = password_verify($password, $foundUser->Password);
+            if ($passwordGood === true) {
+                $foundUser->LastLogin = date('Y-m-d H:i:s');
+                $foundUser->save();
+                $session->u = $foundUser;
+                return 1;
+            }
+        }
+        return false;
     }
 }

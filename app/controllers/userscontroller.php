@@ -25,6 +25,7 @@ class UsersController extends AbstractController
         $this->language->load('template.common');
         $this->language->load('users.add');
         $this->language->load('users.label');
+        $this->language->load('users.messages');
 
         $this->_data['groups'] = UserGroupModel::getAll();
 
@@ -35,7 +36,7 @@ class UsersController extends AbstractController
             if($this->validate->user_Validation($_POST)) {
                 $users = new UserModel();
                 $users->Username = $this->filterString($_POST['Username']);
-                $users->Password = password_hash($_POST['Password'], PASSWORD_DEFAULT);
+                $users->hashPassword($_POST['Password']);
                 $users->Email = $this->filterString($_POST['Email']);
                 $users->PhoneNumber = $this->filterString($_POST['PhoneNumber']);
                 $users->GroupId = $this->filterInt($_POST['GroupId']);
@@ -44,15 +45,96 @@ class UsersController extends AbstractController
                 $users->Status = 1;
 
                 if($users->save()) {
-                    $this->messenger->add('Users', 'تم الحفظ بنجاح');
+                    $this->messenger->add('Users', $this->language->get('message_create_success'));
                     $this->redirect('/users');
                 }else{
-                    $this->messenger->add('Users', 'حدث خطاء في حفظ المستخدم', Messenger::APP_MESSAGE_ERROR);
+                    $this->messenger->add('Users', $this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
                     $this->redirect('/users');
                 }
             }
         }
 
         $this->_view();
+    }
+
+    public function editAction()
+    {
+        $id = $this->filterInt($this->_params[0]);
+        $user = UserModel::getByID($id);
+
+        if($user == false) {
+            $this->redirect('/users');
+        }
+
+        $this->_data['user'] = $user;
+
+        $this->language->load('validation.errors');
+        $this->language->load('template.common');
+        $this->language->load('users.edit');
+        $this->language->load('users.label');
+        $this->language->load('users.messages');
+
+        $this->_data['groups'] = UserGroupModel::getAll();
+
+        if(isset($_POST['submit']))
+        {
+            if($this->validate->user_Validation($_POST)) {
+
+                $user->PhoneNumber = $this->filterString($_POST['PhoneNumber']);
+                $user->GroupId = $this->filterInt($_POST['GroupId']);
+
+                if($user->save()) {
+                    $this->messenger->add('Users', $this->language->get('message_create_success'));
+                    $this->redirect('/users');
+                }else{
+                    $this->messenger->add('Users', $this->language->get('message_create_failed') , Messenger::APP_MESSAGE_ERROR);
+                    $this->redirect('/users');
+                }
+            }
+        }
+
+        $this->_view();
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->filterInt($this->_params[0]);
+        $user = UserModel::getByID($id);
+        if($user == false) {
+            $this->redirect('/users');
+        }
+
+        $this->language->load('users.messages');
+
+        if($user->delete()) {
+            $this->messenger->add('Users', $this->language->get('message_delete_success'));
+        }else{
+            $this->messenger->add('Users', $this->language->get('message_delete_failed'), Messenger::APP_MESSAGE_ERROR);
+        }
+        $this->redirect('/users');
+    }
+
+    public function checkUserExistsAjaxAction()
+    {
+        if(isset($_POST['Username'])) {
+            header('Content-type: text/plain');
+            if(UserModel::UserExists($this->filterString($_POST['Username'])) !== false) {
+                echo 1;
+            } else {
+                echo 2;
+            }
+        }
+    }
+
+    public function checkEmailExistsAjaxAction()
+    {
+        if(isset($_POST['Email'])) {
+            header('Content-type: text/plain');
+            if(UserModel::EmailExists($this->filterString($_POST['Email'])) !== false) {
+                echo 1;
+            } else {
+                echo 2;
+            }
+        }
     }
 }

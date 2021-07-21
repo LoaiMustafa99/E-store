@@ -1,5 +1,4 @@
 <?php
-
 namespace PHPMVC\LIB;
 
 use PHPMVC\LIB\TEMPLATE\Template;

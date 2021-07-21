@@ -5,6 +5,7 @@ use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\Messenger;
 use PHPMVC\MODELS\UserGroupModel;
 use PHPMVC\MODELS\UserModel;
+use PHPMVC\MODELS\UserProfileModel;
 
 class UsersController extends AbstractController
 {
@@ -45,12 +46,16 @@ class UsersController extends AbstractController
                 $users->Status = 1;
 
                 if($users->save()) {
+                    $userprofile = new UserProfileModel();
+                    $userprofile->UserId = $users->UserId;
+                    $userprofile->FirstName = $this->filterString($_POST['FirstName']);
+                    $userprofile->LastName  = $this->filterString($_POST['LastName']);
+                    $userprofile->save(false);
                     $this->messenger->add('Users', $this->language->get('message_create_success'));
-                    $this->redirect('/users');
                 }else{
                     $this->messenger->add('Users', $this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
-                    $this->redirect('/users');
                 }
+                $this->redirect('/users');
             }
         }
 

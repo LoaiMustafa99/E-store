@@ -53,7 +53,7 @@ class UserModel extends AbstractModel
     }
 
     public static function authenticate ($username, $password, $session) {
-        $sql = "SELECT * FROM " . self::$tableName . " WHERE Username = '" . $username . "'";
+        $sql = "SELECT *, (SELECT GroupName FROM app_users_groups WHERE app_users_groups.GroupId = " . self::$tableName . ".GroupId) GroupName FROM " . self::$tableName . " WHERE Username = '" . $username . "'";
         $foundUser = self::getOne($sql);
         if($foundUser !== false) {
             if($foundUser->Status == 0) {
@@ -63,6 +63,7 @@ class UserModel extends AbstractModel
             if ($passwordGood === true) {
                 $foundUser->LastLogin = date('Y-m-d H:i:s');
                 $foundUser->save();
+                $foundUser->profile = UserProfileModel::getByID($foundUser->UserId);
                 $session->u = $foundUser;
                 return 1;
             }

@@ -8,3 +8,4 @@ $_['text_error_form_phonenumber']   = "%s not correct";
 $_['text_error_form_number'] = '%s must be a number';
 $_['text_error_form_password']   = '%s Must Be Contain at least one Uppercase and Lowercase letter and one Number , and The length Must Be Between 8 and 20';
 $_['text_error_form_c_password'] = "%s and %s are not Match";
+$_['text_error_form_alpha'] = '%s must have alphabet characters only';

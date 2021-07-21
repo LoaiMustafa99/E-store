@@ -44,6 +44,27 @@ class Validation
             }
         }
 
+        if(isset($post['FirstName'])) {
+            if (self::EmptyValue($post['FirstName'])) {
+                $errors['field_error_first_name'] = $this->getError('text_error_form_empty', [$this->getLabelForm('FirstName')]);
+            }else if(!self::alpha($post['FirstName'])) {
+                $errors['field_error_first_name'] = $this->getError('text_error_form_alpha', [$this->getLabelForm('FirstName')]);
+            }else if(!self::between($post['FirstName'], 3, 10)) {
+                $errors['field_error_first_name'] = $this->getError('text_error_form_between', [$this->getLabelForm('FirstName'), 5, 10]);
+            }
+        }
+
+        if(isset($post['LastName'])) {
+            if (self::EmptyValue($post['LastName'])) {
+                $errors['field_error_last_name'] = $this->getError('text_error_form_empty', [$this->getLabelForm('LastName')]);
+            }else if(!self::alpha($post['LastName'])) {
+                $errors['field_error_last_name'] = $this->getError('text_error_form_alpha', [$this->getLabelForm('LastName')]);
+            }else if(!self::between($post['LastName'], 3, 10)) {
+                $errors['field_error_last_name'] = $this->getError('text_error_form_between', [$this->getLabelForm('LastName'), 5, 10]);
+            }
+        }
+
+
         if(isset($post['Email'])) {
             if (self::EmptyValue($post['Email'])) {
                 $errors['field_error_email'] = $this->getError('text_error_form_empty', [$this->getLabelForm('Email')]);
@@ -108,4 +129,5 @@ class Validation
             return false;
         }
     }
+    
 }

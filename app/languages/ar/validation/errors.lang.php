@@ -8,3 +8,5 @@ $_['text_error_form_phonenumber']   = "%s غير صحيح ";
 $_['text_error_form_number'] = '%s يجب ان يكون رقم';
 $_['text_error_form_password']   = "%s يجب ان يحتوي على الاقل حرف كبير وصغير ورقم وطولها بين 8 و20";
 $_['text_error_form_c_password'] = "%s و %s غير متطابقين";
+$_['text_error_form_alpha'] = '%s يجب ان يحتوي على احرف فقط';
+

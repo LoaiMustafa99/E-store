@@ -152,6 +152,11 @@ p {
     line-height: 1.5;
 }
 
+.denied {
+    font-size: 39px;
+    text-align: center;
+}
+
 div.wrapper {
     width: 100%;
     position: relative;

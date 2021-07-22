@@ -130,4 +130,53 @@ class Validation
         }
     }
 
+    public function supplier_and_client_Validation($post)
+    {
+        $errors = [];
+
+        if(isset($post['Name'])) {
+            if (self::EmptyValue($post['Name'])) {
+                $errors['field_error_name'] = $this->getError('text_error_form_empty', [$this->getLabelForm('Name')]);
+            }else if(!self::between($post['Name'], 3, 40)) {
+                $errors['field_error_name'] = $this->getError('text_error_form_between', [$this->getLabelForm('Name'), 3, 40]);
+            }else if(!self::alpha($post['Name'])) {
+                $errors['field_error_name'] = $this->getError('text_error_form_alpha', [$this->getLabelForm('Name')]);
+            }
+        }
+
+        if(isset($post['Email'])) {
+            if (self::EmptyValue($post['Email'])) {
+                $errors['field_error_email'] = $this->getError('text_error_form_empty', [$this->getLabelForm('Email')]);
+            }else if(!self::validEmail($post['Email'])) {
+                $errors['field_error_email'] = $this->getError('text_error_form_email', [$this->getLabelForm('Email')]);
+            }else if(isset($_POST['EmailExists']) && $_POST['EmailExists'] !== false) {
+                $errors['field_error_email'] = $this->getError('text_error_form_alraedy_exsits', [$this->getLabelForm('Email')]);
+            }
+        }
+
+        if(isset($post['PhoneNumber'])){
+            if (self::EmptyValue($post['PhoneNumber'])) {
+                $errors['field_error_phone_number'] = $this->getError('text_error_form_empty', [$this->getLabelForm('PhoneNumber')]);
+            }else if(!self::phonenumber($post['PhoneNumber'])){
+                $errors['field_error_phone_number'] = $this->getError('text_error_form_phonenumber', [$this->getLabelForm('PhoneNumber')]);
+            }
+        }
+
+        if(isset($post['Address'])){
+            if (self::EmptyValue($post['Address'])) {
+                $errors['field_error_address'] = $this->getError('text_error_form_empty', [$this->getLabelForm('Address')]);
+            }else if(!self::between($post['Address'], 5, 50)) {
+                $errors['field_error_address'] = $this->getError('text_error_form_between', [$this->getLabelForm('Address'), 5, 50]);
+            }
+        }
+
+
+        if(empty($errors)) {
+            return true;
+        } else {
+            $this->_message->addMulti($errors);
+            return false;
+        }
+    }
+
 }

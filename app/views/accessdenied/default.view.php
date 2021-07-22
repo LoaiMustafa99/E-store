@@ -1,0 +1,1 @@
+<h1 class="denied"><?= $text_access_denied ?></h1>

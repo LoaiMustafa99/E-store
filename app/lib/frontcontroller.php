@@ -55,6 +55,11 @@ class FrontController
             if ($this->_controllers == 'auth' && $this->_action == 'login') {
                 isset($_SERVER['HTTP_REFERER']) ? $this->redirect($_SERVER['HTTP_REFERER']) : $this->redirect('/');
             }
+            if( (bool) CHECK_FOR_PRIVILEGES === true) {
+                if (!$this->_authentication->hasAccess($this->_controllers, $this->_action)) {
+                    $this->redirect('/accessdenied');
+                }
+            }
         }
 
         if(!class_exists($controllerClassName) || !method_exists($controllerClassName, $actionName)) {

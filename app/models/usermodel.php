@@ -66,6 +66,7 @@ class UserModel extends AbstractModel
                 $foundUser->LastLogin = date('Y-m-d H:i:s');
                 $foundUser->save();
                 $foundUser->profile = UserProfileModel::getByID($foundUser->UserId);
+                $foundUser->privileges = UserGroupPrivilegeModel::getPrivilegesForGroup($foundUser->GroupId);
                 $session->u = $foundUser;
                 return 1;
             }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2021 at 06:38 PM
+-- Generation Time: Jul 23, 2021 at 12:15 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -53,13 +53,6 @@ CREATE TABLE `app_employees` (
   `os` varchar(100) DEFAULT NULL,
   `notes` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `app_employees`
---
-
-INSERT INTO `app_employees` (`id`, `name`, `age`, `salary`, `tax`, `address`, `gender`, `theType`, `os`, `notes`) VALUES
-(2, 'Loai', 22, '1500.00', '1.00', 'Amman', 1, 2, 'a:2:{i:0;s:1:\"1\";i:1;s:1:\"2\";}', '');
 
 -- --------------------------------------------------------
 
@@ -112,8 +105,15 @@ CREATE TABLE `app_notifications` (
 CREATE TABLE `app_products_categories` (
   `CategoryId` int(10) UNSIGNED NOT NULL,
   `Name` varchar(30) NOT NULL,
-  `Image` varchar(30) DEFAULT NULL
+  `Image` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_products_categories`
+--
+
+INSERT INTO `app_products_categories` (`CategoryId`, `Name`, `Image`) VALUES
+(7, 'الاجهزة اللوحية', 'cgv4zw_xzlxbp_egfiyx_ktnde1_oc5qcg.jpg');
 
 -- --------------------------------------------------------
 
@@ -260,8 +260,17 @@ CREATE TABLE `app_users` (
   `PhoneNumber` varchar(15) DEFAULT NULL,
   `SubscriptionDate` date NOT NULL,
   `LastLogin` datetime NOT NULL,
-  `GroupId` tinyint(1) UNSIGNED NOT NULL
+  `GroupId` tinyint(1) UNSIGNED NOT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_users`
+--
+
+INSERT INTO `app_users` (`UserId`, `Username`, `Password`, `Email`, `PhoneNumber`, `SubscriptionDate`, `LastLogin`, `GroupId`, `Status`) VALUES
+(13, 'Loai', '$2y$10$YXM5f.l24Rr493T/LCPfDeuYKwlU5K.CeuUthqYkzS/rRoC8bi5OS', 'loai.mustafa76@gmail.com', '0778122927', '2021-07-21', '2021-07-22 17:52:54', 6, 1),
+(14, 'Ahmad', '$2y$10$4M6DWf98Hc4zWh6.hpEZJu25HUFdUoBPblYXCwUqZxZswb5n39T2O', 'Ahmad@gmail.com', '0781234567', '2021-07-22', '2021-07-22 14:33:49', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -273,6 +282,14 @@ CREATE TABLE `app_users_groups` (
   `GroupId` tinyint(1) UNSIGNED NOT NULL,
   `GroupName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_users_groups`
+--
+
+INSERT INTO `app_users_groups` (`GroupId`, `GroupName`) VALUES
+(5, 'محاسب'),
+(6, 'مدير تطبيق');
 
 -- --------------------------------------------------------
 
@@ -286,6 +303,44 @@ CREATE TABLE `app_users_groups_privileges` (
   `privilegeId` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `app_users_groups_privileges`
+--
+
+INSERT INTO `app_users_groups_privileges` (`Id`, `GroupId`, `privilegeId`) VALUES
+(23, 5, 2),
+(24, 5, 3),
+(25, 5, 5),
+(27, 6, 2),
+(28, 6, 3),
+(29, 6, 4),
+(30, 6, 5),
+(31, 6, 6),
+(32, 6, 7),
+(35, 5, 6),
+(36, 6, 12),
+(37, 6, 13),
+(38, 6, 14),
+(39, 6, 15),
+(40, 6, 16),
+(41, 6, 17),
+(42, 6, 18),
+(43, 6, 19),
+(44, 6, 20),
+(45, 5, 13),
+(46, 5, 16),
+(47, 5, 19),
+(48, 6, 21),
+(49, 6, 22),
+(50, 6, 23),
+(51, 6, 24),
+(52, 5, 24),
+(53, 6, 28),
+(54, 6, 29),
+(55, 6, 30),
+(56, 6, 32),
+(57, 6, 33);
+
 -- --------------------------------------------------------
 
 --
@@ -294,8 +349,39 @@ CREATE TABLE `app_users_groups_privileges` (
 
 CREATE TABLE `app_users_privileges` (
   `PrivilegeId` tinyint(3) UNSIGNED NOT NULL,
-  `Privilege` varchar(30) NOT NULL
+  `Privilege` varchar(30) NOT NULL,
+  `PrivilegeTitle` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_users_privileges`
+--
+
+INSERT INTO `app_users_privileges` (`PrivilegeId`, `Privilege`, `PrivilegeTitle`) VALUES
+(2, '/suppliers/add', 'إنشاء مورد جديد'),
+(3, '/suppliers/edit', 'تعديل بيانات مورد'),
+(4, '/suppliers/delete', 'حذف مورد'),
+(5, '/clients/add', 'إنشاء عميل جديد'),
+(6, '/clients/edit', 'تعديل بيانات عميل'),
+(7, '/clients/delete', 'حذف عميل'),
+(12, '/Permissions/add', 'إنشاء صلاحية'),
+(13, '/Permissions/default', 'عرض الصلاحيات'),
+(14, '/Permissions/edit', 'تعديل صلاحية'),
+(15, '/users/add', 'إنشاء مستخدم'),
+(16, '/users/default', 'عرض المستخدمين'),
+(17, '/users/edit', 'تعديل مستخدم'),
+(18, '/usersgroups/add', 'إنشاء مجموعة مستخدم'),
+(19, '/usersgroups/default', 'عرض مجموعات المستخدمين'),
+(20, '/usersgroups/edit', 'تعديل مجموعة مستخدم'),
+(21, '/Permissions/delete', 'حذف صلاحية'),
+(22, '/users/delete', 'حذف مستخدم'),
+(23, '/usersgroups/delete', 'حذف مجموعة'),
+(24, '/suppliers/default', 'عرض الموردين'),
+(28, '/clients/default', 'عرض العملاء'),
+(29, '/productcategories/default', 'عرض اقسام المنتجات'),
+(30, '/productcategories/add', 'إنشاء قسم منتجات'),
+(32, '/productcategories/edit', 'تعديل قسم منتجات'),
+(33, '/productcategories/delete', 'حذف قسم منتجات');
 
 -- --------------------------------------------------------
 
@@ -305,12 +391,20 @@ CREATE TABLE `app_users_privileges` (
 
 CREATE TABLE `app_users_profiles` (
   `UserId` int(10) UNSIGNED NOT NULL,
-  `FirstNamet` varchar(40) NOT NULL,
-  `LastNamet` varchar(10) NOT NULL,
+  `FirstName` varchar(40) NOT NULL,
+  `LastName` varchar(10) NOT NULL,
   `Address` varchar(50) DEFAULT NULL,
-  `DOB` date DEFAULT NULL,
+  `BOD` date DEFAULT NULL,
   `Image` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_users_profiles`
+--
+
+INSERT INTO `app_users_profiles` (`UserId`, `FirstName`, `LastName`, `Address`, `BOD`, `Image`) VALUES
+(13, 'لؤي', 'مصطفى', NULL, NULL, NULL),
+(14, 'احمد', 'مصطفى', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -459,13 +553,13 @@ ALTER TABLE `app_users_profiles`
 -- AUTO_INCREMENT for table `app_clients`
 --
 ALTER TABLE `app_clients`
-  MODIFY `ClientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ClientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `app_employees`
 --
 ALTER TABLE `app_employees`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_expenses_categories`
@@ -489,7 +583,7 @@ ALTER TABLE `app_notifications`
 -- AUTO_INCREMENT for table `app_products_categories`
 --
 ALTER TABLE `app_products_categories`
-  MODIFY `CategoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `CategoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `app_products_list`
@@ -537,37 +631,37 @@ ALTER TABLE `app_sales_invoices_receipts`
 -- AUTO_INCREMENT for table `app_suppliers`
 --
 ALTER TABLE `app_suppliers`
-  MODIFY `SupplierId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `SupplierId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `app_users`
 --
 ALTER TABLE `app_users`
-  MODIFY `UserId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `UserId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `app_users_groups`
 --
 ALTER TABLE `app_users_groups`
-  MODIFY `GroupId` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `GroupId` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `app_users_groups_privileges`
 --
 ALTER TABLE `app_users_groups_privileges`
-  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `app_users_privileges`
 --
 ALTER TABLE `app_users_privileges`
-  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `app_users_profiles`
 --
 ALTER TABLE `app_users_profiles`
-  MODIFY `UserId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `UserId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

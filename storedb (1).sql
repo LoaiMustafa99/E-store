@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2021 at 12:15 AM
+-- Generation Time: Jul 23, 2021 at 09:28 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -113,7 +113,7 @@ CREATE TABLE `app_products_categories` (
 --
 
 INSERT INTO `app_products_categories` (`CategoryId`, `Name`, `Image`) VALUES
-(7, 'الاجهزة اللوحية', 'cgv4zw_xzlxbp_egfiyx_ktnde1_oc5qcg.jpg');
+(14, 'الاجهزة الالكترونية', 'cgv4zw_xzlxbp_egfiyx_ktmjy1_njg1lm.jpg');
 
 -- --------------------------------------------------------
 
@@ -125,12 +125,20 @@ CREATE TABLE `app_products_list` (
   `ProductId` int(10) UNSIGNED NOT NULL,
   `CategoryId` int(10) UNSIGNED NOT NULL,
   `Name` varchar(50) NOT NULL,
-  `Image` varchar(30) DEFAULT NULL,
+  `Image` varchar(40) DEFAULT NULL,
   `Quantity` smallint(5) UNSIGNED NOT NULL,
-  `Price` decimal(6,2) NOT NULL,
+  `BuyPrice` decimal(6,2) NOT NULL,
   `Unit` tinyint(1) NOT NULL,
-  `BarCode` char(20) DEFAULT NULL
+  `BarCode` char(20) DEFAULT NULL,
+  `SellPrice` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_products_list`
+--
+
+INSERT INTO `app_products_list` (`ProductId`, `CategoryId`, `Name`, `Image`, `Quantity`, `BuyPrice`, `Unit`, `BarCode`, `SellPrice`) VALUES
+(2, 14, 'رام', 'cmftsw_00lmpw_zyqyys_qwnyr5_zu5du0.jpg', 65, '60.00', 4, NULL, '65.00');
 
 -- --------------------------------------------------------
 
@@ -269,7 +277,7 @@ CREATE TABLE `app_users` (
 --
 
 INSERT INTO `app_users` (`UserId`, `Username`, `Password`, `Email`, `PhoneNumber`, `SubscriptionDate`, `LastLogin`, `GroupId`, `Status`) VALUES
-(13, 'Loai', '$2y$10$YXM5f.l24Rr493T/LCPfDeuYKwlU5K.CeuUthqYkzS/rRoC8bi5OS', 'loai.mustafa76@gmail.com', '0778122927', '2021-07-21', '2021-07-22 17:52:54', 6, 1),
+(13, 'Loai', '$2y$10$YXM5f.l24Rr493T/LCPfDeuYKwlU5K.CeuUthqYkzS/rRoC8bi5OS', 'loai.mustafa76@gmail.com', '0778122927', '2021-07-21', '2021-07-23 18:44:09', 6, 1),
 (14, 'Ahmad', '$2y$10$4M6DWf98Hc4zWh6.hpEZJu25HUFdUoBPblYXCwUqZxZswb5n39T2O', 'Ahmad@gmail.com', '0781234567', '2021-07-22', '2021-07-22 14:33:49', 5, 1);
 
 -- --------------------------------------------------------
@@ -310,7 +318,6 @@ CREATE TABLE `app_users_groups_privileges` (
 INSERT INTO `app_users_groups_privileges` (`Id`, `GroupId`, `privilegeId`) VALUES
 (23, 5, 2),
 (24, 5, 3),
-(25, 5, 5),
 (27, 6, 2),
 (28, 6, 3),
 (29, 6, 4),
@@ -339,7 +346,14 @@ INSERT INTO `app_users_groups_privileges` (`Id`, `GroupId`, `privilegeId`) VALUE
 (54, 6, 29),
 (55, 6, 30),
 (56, 6, 32),
-(57, 6, 33);
+(57, 6, 33),
+(73, 6, 34),
+(74, 6, 35),
+(75, 6, 36),
+(76, 6, 37),
+(77, 5, 4),
+(78, 5, 29),
+(79, 5, 34);
 
 -- --------------------------------------------------------
 
@@ -381,7 +395,11 @@ INSERT INTO `app_users_privileges` (`PrivilegeId`, `Privilege`, `PrivilegeTitle`
 (29, '/productcategories/default', 'عرض اقسام المنتجات'),
 (30, '/productcategories/add', 'إنشاء قسم منتجات'),
 (32, '/productcategories/edit', 'تعديل قسم منتجات'),
-(33, '/productcategories/delete', 'حذف قسم منتجات');
+(33, '/productcategories/delete', 'حذف قسم منتجات'),
+(34, '/productlist/default', 'عرض المنتجات'),
+(35, '/productlist/add', 'إنشاء منتج'),
+(36, '/productlist/edit', 'تعديل بينات منتج'),
+(37, '/productlist/delete', 'حذف منتج');
 
 -- --------------------------------------------------------
 
@@ -395,7 +413,7 @@ CREATE TABLE `app_users_profiles` (
   `LastName` varchar(10) NOT NULL,
   `Address` varchar(50) DEFAULT NULL,
   `BOD` date DEFAULT NULL,
-  `Image` varchar(30) DEFAULT NULL
+  `Image` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -583,13 +601,13 @@ ALTER TABLE `app_notifications`
 -- AUTO_INCREMENT for table `app_products_categories`
 --
 ALTER TABLE `app_products_categories`
-  MODIFY `CategoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `CategoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `app_products_list`
 --
 ALTER TABLE `app_products_list`
-  MODIFY `ProductId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ProductId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `app_purchases_invoices`
@@ -643,19 +661,19 @@ ALTER TABLE `app_users`
 -- AUTO_INCREMENT for table `app_users_groups`
 --
 ALTER TABLE `app_users_groups`
-  MODIFY `GroupId` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `GroupId` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `app_users_groups_privileges`
 --
 ALTER TABLE `app_users_groups_privileges`
-  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `app_users_privileges`
 --
 ALTER TABLE `app_users_privileges`
-  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `app_users_profiles`

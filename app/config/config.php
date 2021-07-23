@@ -29,8 +29,8 @@ defined('APP_DEFAULT_LANGUAGE') ? null : define('APP_DEFAULT_LANGUAGE', 'ar');
 
 defined('CHECK_FOR_PRIVILEGES') ? null : define('CHECK_FOR_PRIVILEGES', 1);
 
-
-defined('UPLOAD_STORAGE')     ? null : define ('UPLOAD_STORAGE', APP_PATH . DS . '..' . DS . 'uploads' . DS);
+// Upload File Constant
+defined('UPLOAD_STORAGE')     ? null : define ('UPLOAD_STORAGE', APP_PATH . DS . '..' . DS  . 'public' . DS . 'uploads' . DS);
 defined('IMAGE_UPLOAD_STORAGE')     ? null : define ('IMAGE_UPLOAD_STORAGE', UPLOAD_STORAGE . 'images');
 defined('DOCUMENT_UPLOAD_STORAGE')     ? null : define ('DOCUMENT_UPLOAD_STORAGE', UPLOAD_STORAGE . 'documents');
 defined('MAX_FILE_SIZE_ALLOWED')     ? null : define ('MAX_FILE_SIZE_ALLOWED', ini_get('upload_max_filesize'));

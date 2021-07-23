@@ -179,4 +179,26 @@ class Validation
         }
     }
 
+    public function product_category_Validation($post) {
+        $errors = [];
+
+        if(isset($post['Name'])) {
+            if (self::EmptyValue($post['Name'])) {
+                $errors['field_error_name'] = $this->getError('text_error_form_empty', [$this->getLabelForm('Name')]);
+            } else if (!self::between($post['Name'], 3, 40)) {
+                $errors['field_error_name'] = $this->getError('text_error_form_between', [$this->getLabelForm('Name'), 3, 40]);
+            } else if (!self::alpha($post['Name'])) {
+                $errors['field_error_name'] = $this->getError('text_error_form_alpha', [$this->getLabelForm('Name')]);
+            }
+        }
+
+        if(empty($errors)) {
+            return true;
+        } else {
+            $this->_message->addMulti($errors);
+            return false;
+        }
+
+    }
+
 }

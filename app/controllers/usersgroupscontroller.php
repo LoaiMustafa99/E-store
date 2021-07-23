@@ -26,6 +26,7 @@ class UsersGroupsController extends AbstractController
         $this->language->load('template.common');
         $this->language->load('usersgroups.add');
         $this->language->load('usersgroups.labels');
+        $this->language->load('usersgroups.messages');
         $this->_data['privileges'] = permissionModel::getAll();
         if(isset($_POST['submit'])) {
             $group = new UserGroupModel();
@@ -40,9 +41,11 @@ class UsersGroupsController extends AbstractController
                         $groupPrivilege->save();
                     }
                 }
-                $this->messenger->add('UserGroup','تم حفظ المجموعة بنجاح');
-                $this->redirect('/usersgroups');
+                $this->messenger->add('UserGroup', $this->language->get('message_create_success'));
+            } else {
+                $this->messenger->add('UserGroup', $this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
             }
+            $this->redirect('/usersgroups');
         }
 
         $this->_view();
@@ -60,6 +63,7 @@ class UsersGroupsController extends AbstractController
         $this->language->load('template.common');
         $this->language->load('usersgroups.edit');
         $this->language->load('usersgroups.labels');
+        $this->language->load('usersgroups.messages');
 
         $this->_data['group'] = $group;
         $this->_data['privileges'] = permissionModel::getAll();
@@ -92,9 +96,11 @@ class UsersGroupsController extends AbstractController
                         }
                     }
                 }
-                $this->messenger->add('UserGroup','تم حفظ المجموعة بنجاح');
-                $this->redirect('/usersgroups');
+                $this->messenger->add('UserGroup', $this->language->get('message_create_success'));
+            }else {
+                $this->messenger->add('UserGroup', $this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
             }
+            $this->redirect('/usersgroups');
         }
 
         $this->_view();
@@ -110,6 +116,8 @@ class UsersGroupsController extends AbstractController
             $this->redirect('/usersgroups');
         }
 
+        $this->language->load('usersgroups.messages');
+
         $groupPrivileges = UserGroupPrivilegeModel::getBy(['GroupId' => $group->GroupId]);
 
         if(false !== $groupPrivileges) {
@@ -119,9 +127,11 @@ class UsersGroupsController extends AbstractController
         }
 
         if($group->delete()) {
-            $this->messenger->add('UserGroup', 'تم حذف المجموعة بنجاح', Messenger::APP_MESSAGE_ERROR);
-            $this->redirect('/usersgroups');
+            $this->messenger->add('UserGroup', $this->language->get('message_delete_success'));
+        }else {
+            $this->messenger->add('UserGroup', $this->language->get('message_delete_failed'), Messenger::APP_MESSAGE_ERROR);
         }
+        $this->redirect('/usersgroups');
     }
 
 }

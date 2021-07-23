@@ -24,6 +24,7 @@ class PermissionsController extends AbstractController
         $this->language->load('template.common');
         $this->language->load('permissions.labels');
         $this->language->load('permissions.add');
+        $this->language->load('permissions.messages');
 
         if(isset($_POST['submit'])) {
             $privilege = new permissionModel();
@@ -31,9 +32,11 @@ class PermissionsController extends AbstractController
             $privilege->Privilege = $this->filterString($_POST['Privilege']);
             if($privilege->save())
             {
-                $this->messenger->add('permission', 'تم حفظ الصلاحية بنجاح');
-                $this->redirect('/Permissions');
+                $this->messenger->add('permission', $this->language->get('message_create_success'));
+            }else {
+                $this->messenger->add('permission', $this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
             }
+            $this->redirect('/Permissions');
         }
 
         $this->_view();
@@ -54,15 +57,18 @@ class PermissionsController extends AbstractController
         $this->language->load('template.common');
         $this->language->load('permissions.labels');
         $this->language->load('permissions.edit');
+        $this->language->load('permissions.messages');
 
         if(isset($_POST['submit'])) {
             $privilege->PrivilegeTitle = $this->filterString($_POST['PrivilegeTitle']);
             $privilege->Privilege = $this->filterString($_POST['Privilege']);
             if($privilege->save())
             {
-                $this->messenger->add('permission', 'تم حفظ الصلاحية بنجاح');
-                $this->redirect('/Permissions');
+                $this->messenger->add('permission', $this->language->get('message_create_success'));
+            }else {
+                $this->messenger->add('permission', $this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
             }
+            $this->redirect('/Permissions');
         }
 
         $this->_view();
@@ -84,13 +90,15 @@ class PermissionsController extends AbstractController
                 $groupPrivilege->delete();
             }
         }
-
+        $this->language->load('permissions.messages');
 
         if($privilege->delete())
         {
-            $this->messenger->add('permission', 'تم حذف الصلاحية بنجاح' , Messenger::APP_MESSAGE_ERROR);
-            $this->redirect('/Permissions');
+            $this->messenger->add('permission', $this->language->get('message_delete_success'));
+        }else {
+            $this->messenger->add('permission', $this->language->get('message_delete_failed'), Messenger::APP_MESSAGE_ERROR);
         }
+        $this->redirect('/Permissions');
     }
 
 }
